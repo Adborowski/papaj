@@ -27,7 +27,7 @@
 
 .pixel, .infopixel{
     color: #b4b4b4;
-    border: 1px solid black;
+    
     height: 25px;
     line-height: 25px;
     font-size: 12px;
@@ -36,12 +36,13 @@
     display: inline-block;
     text-align: center;
     vertical-align: middle;
-
+    
     box-sizing:border-box;
 }
 
 .pixel{
     width: 25px;
+    border: 1px solid black;
 }
 
 .infopixel{

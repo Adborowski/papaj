@@ -1,5 +1,4 @@
-﻿
-console.log("INITIALIZING PAPAJ COUNTER V0.1");
+﻿console.log("INITIALIZING PAPAJ COUNTER V0.1");
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var img = document.getElementById("pope");
@@ -30,10 +29,6 @@ function identifyLinesOfColor(){
         
         lastColorBlock = aColorBlocks[aColorBlocks.length-1];
 
-        // console.log(`[CHECK] ${lastColorBlock.red} vs ${pixelRed} | tolerance: ${tolerance} | difference: ${Math.abs(lastColorBlock.red, pixelRed)}`);
-        // console.log(`[CHECK] ${lastColorBlock.green} vs ${pixelGreen} | tolerance: ${tolerance} | difference: ${Math.abs(lastColorBlock.green, pixelGreen)}`);
-        // console.log(`[CHECK] ${lastColorBlock.red} vs ${pixelBlue} | tolerance: ${tolerance} | difference: ${Math.abs(lastColorBlock.blue, pixelBlue)}`);
-
         if (
             (Math.abs(lastColorBlock.red - pixelRed) < tolerance) && 
             (Math.abs(lastColorBlock.green - pixelGreen) < tolerance) && 
@@ -59,8 +54,6 @@ function identifyLinesOfColor(){
        
     } // end of FOR LOOP
 
-    // differentiating between blocks of code and blocks in Minecraft is slowly making me insane
-
     console.log("aRowBlocks:" + aRowBlocks.length);
 
     for (var i = 1; i < aRowBlocks.length; i++){
@@ -71,7 +64,7 @@ function identifyLinesOfColor(){
         // create infopixels with row numbers
         var newInfoPixel = document.createElement("div");
         newInfoPixel.classList.add("infopixel");
-        newInfoPixel.innerHTML = "row"+i;
+        newInfoPixel.innerHTML = "row "+i;
         newRow.appendChild(newInfoPixel);
 
         var RowOfBlocks = aRowBlocks[i];
