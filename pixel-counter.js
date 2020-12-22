@@ -4,11 +4,12 @@ var ctx = canvas.getContext("2d");
 var img = document.getElementById("pope");
 
 console.log("IMAGE SIZE: "+ img.naturalWidth+ " x "+img.naturalHeight);
-console.log(myCanvas.clientWidth + " x "+ myCanvas.clientHeight); // remember Canvas != image
+canvas.width = img.naturalWidth;
+canvas.height = img.naturalHeight;
 
 ctx.drawImage(img, 0, 0);
 var result = document.getElementById("result");
-imgData = ctx.getImageData(0, 0, 43, 71); // EDIT SIZE FOR NEW IMAGE
+imgData = ctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
 
 identifyLinesOfColor();
 
@@ -50,7 +51,7 @@ function identifyLinesOfColor(){
         }
 
         // restart at row length
-        if (i%172==0){ // EDIT FOR NEW IMAGE: WIDTH * 4
+        if (i%(img.naturalWidth*4)==0){
             aRowBlocks.push(aColorBlocks);
             aColorBlocks = [];
         }
