@@ -15,6 +15,11 @@
     position: fixed;
     top: 200px;
     right: 200px;
+    transition: 0.3s all;
+}
+
+#pope:hover{
+    opacity: 0.25;
 }
 
 #wrapper-for-name{

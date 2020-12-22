@@ -1,11 +1,14 @@
-﻿console.log("INITIALIZING PAPAJ COUNTER V0.1");
+﻿console.log("INITIALIZING PAPAJ COUNTER V2.0");
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var img = document.getElementById("pope");
+
+console.log("IMAGE SIZE: "+ img.naturalWidth+ " x "+img.naturalHeight);
 console.log(myCanvas.clientWidth + " x "+ myCanvas.clientHeight); // remember Canvas != image
+
 ctx.drawImage(img, 0, 0);
 var result = document.getElementById("result");
-imgData = ctx.getImageData(0, 0, 45, 72); // EDIT SIZE FOR NEW IMAGE
+imgData = ctx.getImageData(0, 0, 43, 71); // EDIT SIZE FOR NEW IMAGE
 
 identifyLinesOfColor();
 
@@ -47,7 +50,7 @@ function identifyLinesOfColor(){
         }
 
         // restart at row length
-        if (i%180==0){ // EDIT FOR NEW IMAGE: WIDTH * 4
+        if (i%172==0){ // EDIT FOR NEW IMAGE: WIDTH * 4
             aRowBlocks.push(aColorBlocks);
             aColorBlocks = [];
         }
@@ -71,7 +74,7 @@ function identifyLinesOfColor(){
 
         RowOfBlocks.forEach(element => {
 
-            console.log(RowOfBlocks);
+            // console.log(RowOfBlocks);
             if (RowOfBlocks.count == 0){console.log("empty")};
             var newChild = document.createElement("div");
             newChild.classList.add("pixel");
