@@ -19,7 +19,8 @@
 }
 
 #pope:hover{
-    opacity: 0.25;
+    /* opacity: 0.25; */
+    width: 270px;
 }
 
 #wrapper-for-name{
@@ -63,6 +64,17 @@
     /* width: 1400px; */
     margin: 0;
     display: block;
+    transition: 0.3s all;
+}
+
+.row.marked{
+    background-color: lightgoldenrodyellow;
+}
+
+.row:hover{
+    background-color: #fafafa;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #result{

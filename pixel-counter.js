@@ -17,7 +17,7 @@ function identifyLinesOfColor(){
 
     var tolerance = 20; // tolerance for slight differences in color data due to bad jpegs.
     var aRowBlocks = []; // ColorBlocks go into RowBlocks
-    var aColorBlocks = [];
+    var aColorLines = [];
 
     for (var i = 0; i<=imgData.data.length; i+=4){
 
@@ -25,42 +25,42 @@ function identifyLinesOfColor(){
         var pixelGreen = imgData.data[i+1];
         var pixelBlue = imgData.data[i+2];
 
-        var lastColorBlock;
+        var lastColorLine;
 
-        if (aColorBlocks.length == 0){
-            aColorBlocks.push({"count":0, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue});
+        if (aColorLines.length == 0){
+            aColorLines.push({"count":0, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue});
         } 
         
-        lastColorBlock = aColorBlocks[aColorBlocks.length-1];
+        lastColorLine = aColorLines[aColorLines.length-1];
 
-        if (
-            (Math.abs(lastColorBlock.red - pixelRed) < tolerance) && 
-            (Math.abs(lastColorBlock.green - pixelGreen) < tolerance) && 
-            (Math.abs(lastColorBlock.blue - pixelBlue) < tolerance)
-        ){
+        if ( // if the pixel in question is the same as the previous pixel
+                (Math.abs(lastColorLine.red - pixelRed) < tolerance) && 
+                (Math.abs(lastColorLine.green - pixelGreen) < tolerance) && 
+                (Math.abs(lastColorLine.blue - pixelBlue) < tolerance)
+            ){
             // console.log("SAME!");
-            lastColorBlock.count++;
+            lastColorLine.count++;
 
         } else {
 
-            // different color
             // console.log("DIFFERENT!");
-            var newColorBlock = {"count": 1, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue};
-            aColorBlocks.push(newColorBlock);
+            var newColorLine = {"count": 1, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue};
+            aColorLines.push(newColorLine);
 
         }
 
         // restart at row length
         if (i%(img.naturalWidth*4)==0){
-            aRowBlocks.push(aColorBlocks);
-            aColorBlocks = [];
+            aRowBlocks.push(aColorLines);
+            aColorLines = [];
         }
        
     } // end of FOR LOOP
 
     console.log("aRowBlocks:" + aRowBlocks.length);
 
-    for (var i = 1; i < aRowBlocks.length; i++){
+    // from now on we only handle infopixels
+    for (var i = 1; i < aRowBlocks.length; i++){ // how many rows
 
         var newRow = document.createElement("div");
         newRow.classList.add("row");
@@ -75,7 +75,7 @@ function identifyLinesOfColor(){
 
         RowOfBlocks.forEach(element => {
 
-            // console.log(RowOfBlocks);
+            console.log(RowOfBlocks);
             if (RowOfBlocks.count == 0){console.log("empty")};
             var newChild = document.createElement("div");
             newChild.classList.add("pixel");
@@ -88,3 +88,4 @@ function identifyLinesOfColor(){
         result.appendChild(newRow);
     }
 }
+
