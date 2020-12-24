@@ -78,7 +78,7 @@ function analyzeImage(){
         // create infopixels with row numbers
         var newInfoPixel = document.createElement("div");
         newInfoPixel.classList.add("infopixel");
-        newInfoPixel.innerHTML = "row "+i;
+        newInfoPixel.innerHTML = "row "+(i+1);
         newRow.appendChild(newInfoPixel);
 
         var groupedImageRow = aGroupedImageRows[i];
