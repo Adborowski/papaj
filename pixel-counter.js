@@ -31,10 +31,10 @@ function analyzeImage(){
 
         if (aBlocksOfColor.length == 0){
             aBlocksOfColor.push({"count":0, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue});
-        } 
-        
-        lastColorLine = aBlocksOfColor[aBlocksOfColor.length-1];
+        }
 
+        lastColorLine = aBlocksOfColor[aBlocksOfColor.length-1];
+        
         if ( // if the pixel in question is the same as the previous pixel
                 (Math.abs(lastColorLine.red - pixelRed) < tolerance) && 
                 (Math.abs(lastColorLine.green - pixelGreen) < tolerance) && 
@@ -52,7 +52,7 @@ function analyzeImage(){
         }
 
         // restart at row length
-        if (i%(img.naturalWidth*4)==0){
+        if (i%(img.naturalWidth*4)==0 && i!=0){
             aGroupedImageRows.push(aBlocksOfColor);
             aBlocksOfColor = [];
             // console.log(aBlocksOfColor);
@@ -61,8 +61,9 @@ function analyzeImage(){
     } // end of FOR LOOP
 
     console.log("aGroupedImageRows:" + aGroupedImageRows.length);
+    console.log(aGroupedImageRows);
 
-    for (var i = 1; i < aGroupedImageRows.length; i++){ // how many rows
+    for (var i = 0; i < aGroupedImageRows.length; i++){ // how many rows
 
         var newRow = document.createElement("div");
         newRow.classList.add("row");
@@ -70,19 +71,17 @@ function analyzeImage(){
         // create infopixels with row numbers
         var newInfoPixel = document.createElement("div");
         newInfoPixel.classList.add("infopixel");
-        newInfoPixel.innerHTML = "row "+i;
+        newInfoPixel.innerHTML = "row "+(i+1);
         newRow.appendChild(newInfoPixel);
 
-        var RowOfBlocks = aGroupedImageRows[i];
+        var groupedImageRow = aGroupedImageRows[i];
 
-        RowOfBlocks.forEach(element => {
-
-            // console.log(RowOfBlocks);
+        groupedImageRow.forEach(colorBlock => {
 
             var newChild = document.createElement("div");
             newChild.classList.add("pixel");
-            newChild.style.backgroundColor = `rgb(${element.red}, ${element.green}, ${element.blue})`;
-            newChild.innerHTML = element.count;
+            newChild.style.backgroundColor = `rgb(${colorBlock.red}, ${colorBlock.green}, ${colorBlock.blue})`;
+            newChild.innerHTML = colorBlock.count;
             newRow.appendChild(newChild);
 
         })
