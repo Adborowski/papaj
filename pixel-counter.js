@@ -13,9 +13,9 @@ ctx.drawImage(img, 0, 0);
 var result = document.getElementById("result");
 imgData = ctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight); // EDIT SIZE FOR NEW IMAGE
 
-identifyLinesOfColor();
+analyzeImage();
 
-function identifyLinesOfColor(){
+function analyzeImage(){
 
     var tolerance = 10; // tolerance for slight differences in color data due to bad jpegs.
     var aGroupedImageRows = [];
