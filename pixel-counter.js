@@ -59,11 +59,8 @@ function analyzeImage(){
         }
 
         // restart at row length
-        if (i%(img.naturalWidth*4)==396){
+        if (i%(img.naturalWidth*4)==((img.naturalWidth*4)-4)){
             aGroupedImageRows.push(aBlocksOfColor);
-            console.log('trying to sum');
-            console.log(sumCounts(aBlocksOfColor));
-            sumCounts(aBlocksOfColor) > 50 ? console.log("valid") : console.log("invalid");
             aBlocksOfColor = [];
             console.log(aBlocksOfColor);
         }
