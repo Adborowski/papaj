@@ -3,12 +3,15 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var img = document.getElementById("pope");
 
+canvas.width = img.naturalWidth;
+canvas.height = img.naturalHeight;
+
 console.log("IMAGE SIZE: "+ img.naturalWidth+ " x "+img.naturalHeight);
-console.log(myCanvas.clientWidth + " x "+ myCanvas.clientHeight); // remember Canvas != image
+console.log("CANVAS SIZE: "+ canvas.width + " x "+ canvas.height);
 
 ctx.drawImage(img, 0, 0);
 var result = document.getElementById("result");
-imgData = ctx.getImageData(0, 0, 43, 71); // EDIT SIZE FOR NEW IMAGE
+imgData = ctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight); // EDIT SIZE FOR NEW IMAGE
 
 identifyLinesOfColor();
 
