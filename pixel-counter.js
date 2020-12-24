@@ -15,47 +15,54 @@ imgData = ctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight); // EDIT S
 
 analyzeImage();
 
+function sumCounts(row){
+
+    var sumCounts = 0;
+    row.forEach(block => {
+        sumCounts = sumCounts + block.count;
+    })
+    return sumCounts;
+
+}
+
 function analyzeImage(){
 
     var tolerance = 10; // tolerance for slight differences in color data due to bad jpegs.
     var aGroupedImageRows = [];
     var aBlocksOfColor = [];
 
-    for (var i = 0; i<=imgData.data.length; i+=4){
+    for (var i = 0; i<imgData.data.length; i+=4){
 
         var pixelRed = imgData.data[i];
         var pixelGreen = imgData.data[i+1];
         var pixelBlue = imgData.data[i+2];
 
-        var lastColorLine;
-
         if (aBlocksOfColor.length == 0){
-            aBlocksOfColor.push({"count":0, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue});
+            aBlocksOfColor.push({"count":0, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue, "flag": "start"});
         }
 
-        lastColorLine = aBlocksOfColor[aBlocksOfColor.length-1];
+        var lastColorBlock = aBlocksOfColor[aBlocksOfColor.length-1];
         
         if ( // if the pixel in question is the same as the previous pixel
-                (Math.abs(lastColorLine.red - pixelRed) < tolerance) && 
-                (Math.abs(lastColorLine.green - pixelGreen) < tolerance) && 
-                (Math.abs(lastColorLine.blue - pixelBlue) < tolerance)
+                (Math.abs(lastColorBlock.red - pixelRed) < tolerance) && 
+                (Math.abs(lastColorBlock.green - pixelGreen) < tolerance) && 
+                (Math.abs(lastColorBlock.blue - pixelBlue) < tolerance)
             ){
             // console.log("SAME!");
-            lastColorLine.count++;
+            lastColorBlock.count++;
 
         } else {
 
             // console.log("DIFFERENT!");
-            var newColorLine = {"count": 1, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue};
-            aBlocksOfColor.push(newColorLine);
-            // console.log(newColorLine);
+            var newColorBlock = {"count": 1, "red":pixelRed, "green":pixelGreen, "blue":pixelBlue, "flag":"diff"};
+            aBlocksOfColor.push(newColorBlock);
         }
 
         // restart at row length
-        if (i%(img.naturalWidth*4)==0 && i!=0){
+        if (i%(img.naturalWidth*4)==0){
             aGroupedImageRows.push(aBlocksOfColor);
             aBlocksOfColor = [];
-            // console.log(aBlocksOfColor);
+            console.log(aBlocksOfColor);
         }
        
     } // end of FOR LOOP
@@ -71,7 +78,7 @@ function analyzeImage(){
         // create infopixels with row numbers
         var newInfoPixel = document.createElement("div");
         newInfoPixel.classList.add("infopixel");
-        newInfoPixel.innerHTML = "row "+(i+1);
+        newInfoPixel.innerHTML = "row "+i;
         newRow.appendChild(newInfoPixel);
 
         var groupedImageRow = aGroupedImageRows[i];
